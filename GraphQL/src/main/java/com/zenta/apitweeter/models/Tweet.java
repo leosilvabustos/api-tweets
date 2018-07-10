@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
+import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Reference;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -35,6 +36,13 @@ public class Tweet implements Serializable {
     private Integer inReplyToStatus;
     private Integer inReplyToUser;
     private Integer inReplyToScreen;
+    private String createdAt;
+    private Boolean favorited;
+    private Integer favoritedCount;
+    private Boolean retweeted;
+    private Integer retweetedCount;
+    private List<String> urls;
+    private List<String> hashtags;
     
     private String user;
     //private User user;

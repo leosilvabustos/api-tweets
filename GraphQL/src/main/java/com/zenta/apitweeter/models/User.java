@@ -33,6 +33,11 @@ public class User implements Serializable {
     @Field("_id")
     private String id;
     private String name;
+    private String profileUrl;
+    private String createdAt;
+    private Boolean following;
+    
+    
     @Reference
     private List<Tweet> tweets;
     

@@ -4,19 +4,29 @@ type Mutation @java(package:"com.zenta.apitweeter.graphql.resolve.MutationResolv
 }
 
 type User @java(package:"com.zenta.apitweeter.models.User"){
-    id: String
+    id: String!
     name: String
+    profileUrl: String!
+    createdAt: String!
+    following: Boolean    
     tweets: [Tweet]
 }
 
 type Tweet @java(package:"com.zenta.apitweeter.models.Tweet"){
-    id: String
+    id: String!
     text: String
     source: String
     truncated: Boolean
     inReplyToStatus: Int
     inReplyToUser: Int
     inReplyToScreen: Int
+    createdAt: String
+    favorited: Boolean
+    favoritedCount: Int
+    retweeted: Boolean
+    retweetedCount: Int
+    urls: [String]
+    hashtags: [String]
     user: User
 }
 
