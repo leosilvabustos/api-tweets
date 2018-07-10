@@ -1,0 +1,9 @@
+mutation{
+    checkUser ($request){
+        id
+        name
+        profileUrl
+        createdAt
+        following
+    }
+}

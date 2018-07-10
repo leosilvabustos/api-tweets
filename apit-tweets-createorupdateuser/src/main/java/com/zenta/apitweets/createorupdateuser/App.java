@@ -1,9 +1,11 @@
-package com.zenta.apitweets.business;
+package com.zenta.apitweets.createorupdateuser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -16,7 +18,10 @@ public class App {
     
     public static void main(String[] args){        
         SpringApplication.run(App.class, args);
-        LOG.info("App api-weets-business IS UP!");
+        LOG.info("App apit-tweets-createorupdateuser IS UP!");
     }
-    
+    @Bean
+    public RestTemplate rest() {
+        return new RestTemplate();
+    }
 }

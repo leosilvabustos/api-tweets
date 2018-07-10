@@ -1,0 +1,16 @@
+mutation{
+    createUser ( 
+        userInput: {
+            name: "$name",
+            profileUrl: "$profileUrl",
+            createdAt: "$createAt",
+            following: $following
+        }
+    ){
+        id
+        name
+        profileUrl
+        createdAt
+        following
+    }
+}

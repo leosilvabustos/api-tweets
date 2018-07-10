@@ -37,7 +37,7 @@ public class User implements Serializable {
     
     @Override
     public String toString() {
-        return "{id: "+this.getId()+", name:"+this.getName()+", tweets: "+
-                (tweets!=null?tweets.size():"null")+"}";
+        return "[id: "+this.getId()+", name:"+this.getName()+", tweets: "+
+                (tweets!=null?tweets.size():"null")+"]";
     }
 }

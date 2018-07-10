@@ -1,1 +1,4 @@
 /api-tweets-db-access/target/
+/apit-tweets-createorupdateuser/target/
+/api-tweets-createtweet/target/
+/api-tweets-business/target/

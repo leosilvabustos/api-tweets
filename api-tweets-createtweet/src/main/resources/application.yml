@@ -1,0 +1,10 @@
+server:
+    port: 8002
+spring:
+    logging:
+        pattern:
+            console: "%d %-5level %logger : %msg%n"
+        level:
+            root: debug
+            org.springframework: debug
+            com.zenta.apitweets: debug

@@ -1,7 +1,7 @@
 type Mutation @java(package:"com.zenta.apitweeter.graphql.resolve.MutationResolver"){
     createTweet(tweetInput:TweetInput): Tweet
     createUser(userInput: UserInput): User
-    checkUser(url: String): User
+    checkUser(id:String, url: String): User
     updateUser(id: String, userInput: UserInput): User
 }
 
