@@ -33,7 +33,10 @@ public class RestController {
         LOG.info("Request API: " + query);
         ExecutionResult result = graphQLService.execute(query);
         LOG.info("errors: "+result.getErrors());
-        return ResponseEntity.ok(result.getData());
+//        if(result.getErrors() == null || result.getErrors().size() == 0) {
+//            return ResponseEntity.ok(result.getData());
+//        }
+        return ResponseEntity.ok(result);
     }
     
 }

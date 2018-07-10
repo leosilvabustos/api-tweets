@@ -5,28 +5,64 @@
  */
 package com.zenta.apitweets.business.pojo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.List;
 
 /**
  *
  * @author Nb-Zenta
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+    "id",
+    "text",
+    "source",
+    "truncated",
+    "inReplyToStatus",
+    "inReplyToUser",
+    "inReplyToScreen",
+    "createdAt",
+    "favorited",
+    "favoritedCount",    
+    "retweeted",
+    "retweetedCount",
+    "urls",
+    "hashtags",
+    "user"
+})
 public class Tweet {
     
+    @JsonProperty("id")
     private String id;
+    @JsonProperty("text")
     private String text;
+    @JsonProperty("source")
     private String source;
+    @JsonProperty("truncated")
     private boolean truncated;
+    @JsonProperty("inReplyToStatus")
     private Integer inReplyToStatus;
+    @JsonProperty("inReplyToUser")
     private Integer inReplyToUser;
+    @JsonProperty("inReplyToScreen")
     private Integer inReplyToScreen;
+    @JsonProperty("createdAt")
     private String createdAt;
+    @JsonProperty("favorited")
     private Boolean favorited;
+    @JsonProperty("favoritedCount")
     private Integer favoritedCount;
+    @JsonProperty("retweeted")
     private Boolean retweeted;
+    @JsonProperty("retweetedCount")
     private Integer retweetedCount;
+    @JsonProperty("urls")
     private List<String> urls;
+    @JsonProperty("hashtags")
     private List<String> hashtags;
+    @JsonProperty("user")
     private User user;
     
     public Tweet(){}
@@ -149,8 +185,26 @@ public class Tweet {
 
     public void setUser(User user) {
         this.user = user;
+    }    
+    
+    @Override
+    public String toString() {
+        return "["+
+            "id: " + this.id +
+            ", text: " + this.text +
+            ", source: " + this.source +
+            ", truncated: " + this.truncated +
+            ", inReplyToStatus: " + this.inReplyToStatus +
+            ", inReplyToUser: " + this.inReplyToUser +
+            ", inReplyToScreen: " + this.inReplyToScreen +
+            ", createdAt: " + this.createdAt +
+            ", favorited: " + this.favorited +
+            ", favoritedCount: " + this.favoritedCount +
+            ", retweeted: " + this.retweeted +
+            ", retweetedCount: " + this.retweetedCount +
+            ", urls: " + (this.urls!=null?this.urls.size():"0") +
+            ", hashtags: " + (this.hashtags!=null?this.hashtags.size():"0") +
+            ", user: " + this.user +
+            "]";
     }
-    
-    
-    
 }
