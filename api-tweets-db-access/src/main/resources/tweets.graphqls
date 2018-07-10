@@ -1,0 +1,80 @@
+type Mutation @java(package:"com.zenta.apitweeter.graphql.resolve.MutationResolver"){
+    createTweet(tweetInput:TweetInput): Tweet
+    createUser(userInput: UserInput): User
+    checkUser(url: String): User
+    updateUser(id: String, userInput: UserInput): User
+}
+
+type User @java(package:"com.zenta.apitweeter.models.User"){
+    id: String!
+    name: String
+    profileUrl: String!
+    createdAt: String!
+    following: Boolean    
+    tweets: [Tweet]
+}
+
+type Tweet @java(package:"com.zenta.apitweeter.models.Tweet"){
+    id: String!
+    text: String
+    source: String
+    truncated: Boolean
+    inReplyToStatus: Int
+    inReplyToUser: Int
+    inReplyToScreen: Int
+    createdAt: String
+    favorited: Boolean
+    favoritedCount: Int
+    retweeted: Boolean
+    retweetedCount: Int
+    urls: [String]
+    hashtags: [String]
+    user: User
+}
+
+input TweetInput @java(package:"com.zenta.apitweeter.models.inputs.TweetInput") {
+    text: String
+    source: String
+    truncated: Boolean
+    inReplyToStatus: Int
+    inReplyToUser: Int
+    inReplyToScreen: Int
+    createdAt: String
+    favorited: Boolean
+    favoritedCount: Int
+    retweeted: Boolean
+    retweetedCount: Int
+    urls: [String]
+    hashtags: [String]
+    user: UserInput
+}
+
+input UserInput @java(package:"com.zenta.apitweeter.models.inputs.UserInput") {
+    name: String!
+    profileUrl: String!
+    createdAt: String!
+    following: Boolean
+}
+
+type TweetsByUser @java(package:"com.zenta.apitweets.dbaccess.models.outputs.TweetsByUser") {
+    pageSize: Int
+    page: Int
+    totalPages: Int
+    tweets: [Tweet]
+}
+
+input TweetsByUserInput @java(package:"com.zenta.apitweeter.models.inputs.TweetsByUserInput") {
+    id: String
+    pageSize: Int!
+    page: Int!
+}
+
+type Query {
+    allTweets: [Tweet]
+    tweets(tweetsByUserInput: TweetsByUserInput): TweetsByUser
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+}

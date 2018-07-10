@@ -1,0 +1,15 @@
+server:
+    port: 8000
+spring:
+    data:
+        mongodb:
+            database: apitweets
+            host: localhost
+            port: 27017
+    logging:
+        pattern:
+            console: "%d %-5level %logger : %msg%n"
+        level:
+            root: debug
+            org.springframework: debug
+            com.zenta.apitweets: debug
