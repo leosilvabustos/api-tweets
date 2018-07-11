@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.zenta.apitweets.business.http;
+package com.zenta.apitweets.createorupdateuser.http;
 
+import com.zenta.apitweets.business.http.api.Errors;
 import com.zenta.apitweets.business.pojo.User;
+import java.util.List;
 
 /**
  *
@@ -14,4 +16,6 @@ import com.zenta.apitweets.business.pojo.User;
 public interface UserResponse {
     
     public User getUser();
+    
+    public List<Errors> getErrors();
 }

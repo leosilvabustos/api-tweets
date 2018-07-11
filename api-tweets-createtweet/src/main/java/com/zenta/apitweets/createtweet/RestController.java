@@ -5,11 +5,11 @@
  */
 package com.zenta.apitweets.createtweet;
 
-import com.zenta.apitweets.business.http.Result;
 import com.zenta.apitweets.business.http.api.ApiResponse;
 import com.zenta.apitweets.business.pojo.Tweet;
 import com.zenta.apitweets.business.utils.ReadFile;
 import com.zenta.apitweets.createtweet.http.ApiTweetResult;
+import com.zenta.apitweets.createtweet.http.CreateTweetResponse;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -126,33 +126,32 @@ public class RestController {
                 .replace("$hashtags", _hashtag)
                 ;
         
-        ApiResponse apiResponse = requestToApi(input);
+        CreateTweetResponse apiResponse = requestToApi(input);
         
         if(apiResponse != null && (apiResponse.getErrors()==null || apiResponse.getErrors().isEmpty())) {
-            
             result.setError(false);
             result.setStatus("OK");
             result.setDescription("Se ha creado correctamente el tweet");
-            result.setTweet((Tweet) apiResponse.getData());
-            
+            result.setTweet((Tweet) apiResponse.getTweet());
         } else {
-            
             result.setError(true);
             result.setStatus("NOK");
-            result.setDescription("Ha ocurrido un error: " + apiResponse.getErrors().get(0).getErrorType());
+            result.setDescription("Ha ocurrido un error: " + 
+                    ((apiResponse!=null&&apiResponse.getErrors()!=null&&!apiResponse.getErrors().isEmpty())
+                    ?apiResponse.getErrors().get(0).getErrorType():"No identificado"));
         }
         
         return ResponseEntity.ok(result);
     }
     
-    public ApiResponse requestToApi(String input) {
+    public CreateTweetResponse requestToApi(String input) {
         
         LOG.info("Request api: " + input);
         
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(input, headers);
-        ApiResponse rest = restTemplate.postForObject(API_URL, entity, ApiResponse.class);
+        CreateTweetResponse rest = restTemplate.postForObject(API_URL, entity, CreateTweetResponse.class);
         return rest;
     }
     

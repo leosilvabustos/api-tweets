@@ -7,6 +7,7 @@ package com.zenta.apitweets.createtweet.http;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zenta.apitweets.business.http.api.ApiResponse;
 import com.zenta.apitweets.business.pojo.Tweet;
 
 /**
@@ -14,7 +15,7 @@ import com.zenta.apitweets.business.pojo.Tweet;
  * @author Nb-Zenta
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CreateTweet {
+public class CreateTweetResponse extends ApiResponse{
         
     @JsonProperty("createTweet")
     private Tweet tweet;

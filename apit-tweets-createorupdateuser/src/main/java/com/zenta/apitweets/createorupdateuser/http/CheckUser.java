@@ -5,15 +5,15 @@
  */
 package com.zenta.apitweets.createorupdateuser.http;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zenta.apitweets.business.http.UserResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zenta.apitweets.business.http.api.ApiResponse;
 import com.zenta.apitweets.business.pojo.User;
 /**
  *
  * @author Nb-Zenta
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CheckUser implements UserResponse {
+public class CheckUser  extends ApiResponse implements UserResponse {
     
     @JsonProperty("checkUser")
     private User user;

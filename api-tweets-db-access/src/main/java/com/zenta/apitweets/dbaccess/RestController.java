@@ -3,6 +3,10 @@ package com.zenta.apitweets.dbaccess;
 import com.zenta.apitweets.dbaccess.graphql.GraphQLService;
 import graphql.ExecutionResult;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +37,16 @@ public class RestController {
         LOG.info("Request API: " + query);
         ExecutionResult result = graphQLService.execute(query);
         LOG.info("errors: "+result.getErrors());
-//        if(result.getErrors() == null || result.getErrors().size() == 0) {
-//            return ResponseEntity.ok(result.getData());
-//        }
-        return ResponseEntity.ok(result);
+        Map<String, Object> response = new HashMap<>();
+        response.put("errors", result.getErrors());
+        if(result.getErrors() == null || result.getErrors().isEmpty()) {
+            LinkedHashMap mapData = ((LinkedHashMap) result.getData());
+            Set<String> keys = mapData.keySet();
+            keys.stream().forEach((_item) -> {
+                response.put( (String)_item, mapData.get((String)_item));
+            });
+        }        
+        return ResponseEntity.ok(response);
     }
     
 }

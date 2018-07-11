@@ -4,7 +4,8 @@ import com.zenta.apitweets.business.pojo.User;
 import com.zenta.apitweets.createorupdateuser.http.CheckUser;
 import com.zenta.apitweets.createorupdateuser.http.CreateUser;
 import com.zenta.apitweets.createorupdateuser.http.UpdateUser;
-import com.zenta.apitweets.business.http.UserResponse;
+import com.zenta.apitweets.createorupdateuser.http.UserResponse;
+import com.zenta.apitweets.business.http.api.ApiResponse;
 import com.zenta.apitweets.business.utils.ReadFile;
 import com.zenta.apitweets.createorupdateuser.http.ApiUsersResult;
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class RestController {
             @RequestParam(value="profileUrl",required=false) String profileUrl, 
             @RequestParam(value="createdAt",required=false) String createdAt,
             @RequestParam(value="following", required=false) String following
-        ) throws IOException{
+        ) throws IOException {
         
         LOG.info("createOrUpdate  [id: " + id + ", name: " + name+ ", profileUrl: " + profileUrl+ ", createdAt: " + createdAt+"]");
         User user = null;
@@ -76,12 +77,17 @@ public class RestController {
                 .replace("$createAt", createdAt)
                 .replace("$following", following);        
         if(user == null) {        
-            LOG.info("Se debe crear un usuario");
+            LOG.info("Se debe crear un usuario: " + user);
         } else {            
             LOG.info("Actualizar un usuario");
             input = input.replace("$id", id);
         }
-        user = requestToApi(input, user==null?CreateUser.class: UpdateUser.class);
+        try {
+            user = requestToApi(input, user==null?CreateUser.class: UpdateUser.class);
+        } catch (Exception e) {
+            user = null;
+            result.setDescription("Ha ocurrido un error:" + e.getMessage());
+        }
         if(user !=null ){
             result.setError(false);
             result.setStatus("OK");
@@ -90,7 +96,7 @@ public class RestController {
         } else {
             result.setError(true);
             result.setStatus("NOK");
-            result.setDescription("Ha ocurrido un error, intente nuevamente.");
+            
         }
         return ResponseEntity.ok(result);
     }
@@ -106,9 +112,15 @@ public class RestController {
     public User requestToApi(String input, Class<? extends UserResponse> clazz) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<>(input, headers);
+        HttpEntity<String> entity = new HttpEntity<>(input, headers);        
         UserResponse o = restTemplate.postForObject(API_URL, entity, clazz);
-        return o != null ? o.getUser() : null;
+        if(o != null ) {
+            if(o.getErrors() !=null && !o.getErrors().isEmpty()) {
+                throw new RuntimeException(o.getErrors().get(0).getMessage());
+            }
+            return o.getUser();
+        }
+        return null;
     }
     
 }
