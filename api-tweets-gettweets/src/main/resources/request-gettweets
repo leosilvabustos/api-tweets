@@ -1,0 +1,36 @@
+{
+    tweets(
+        tweetsByUserInput:{
+            id: "$userId",
+            pageSize: $pageSize,
+            page: $page
+        }
+    ) {
+        pageSize
+        page
+        totalPages
+        tweets {
+            id
+            text
+            source
+            truncated
+            inReplyToStatus
+            inReplyToUser
+            inReplyToScreen
+            createdAt
+            favorited
+            favoritedCount
+            retweeted
+            retweetedCount
+            urls
+            hashtags
+            user{
+                id
+                name
+                profileUrl
+                createdAt
+                following  
+            }
+        }
+    }
+}
