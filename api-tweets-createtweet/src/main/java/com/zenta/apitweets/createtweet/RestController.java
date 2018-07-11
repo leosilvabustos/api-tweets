@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.zenta.apitweets.createtweet;
 
-import com.zenta.apitweets.business.http.api.ApiResponse;
 import com.zenta.apitweets.business.pojo.Tweet;
 import com.zenta.apitweets.business.utils.ReadFile;
 import com.zenta.apitweets.createtweet.http.ApiTweetResult;
@@ -37,7 +31,9 @@ public class RestController {
     private final Logger LOG = LoggerFactory.getLogger(RestController.class);
     
     private final RestTemplate restTemplate;
-    private static final String API_URL = "http://localhost:8000/tweets";
+    
+    @Value("${com.zenta.apitweets.url}")
+    private String endpoint;
     
     @Value("classpath:request-createtweet")
     private Resource requestCreateTweet;
@@ -152,7 +148,7 @@ public class RestController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(input, headers);
-        CreateTweetResponse rest = restTemplate.postForObject(API_URL, entity, CreateTweetResponse.class);
+        CreateTweetResponse rest = restTemplate.postForObject(endpoint, entity, CreateTweetResponse.class);
         return rest;
     }
     

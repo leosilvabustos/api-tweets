@@ -5,7 +5,6 @@ import com.zenta.apitweets.createorupdateuser.http.CheckUser;
 import com.zenta.apitweets.createorupdateuser.http.CreateUser;
 import com.zenta.apitweets.createorupdateuser.http.UpdateUser;
 import com.zenta.apitweets.createorupdateuser.http.UserResponse;
-import com.zenta.apitweets.business.http.api.ApiResponse;
 import com.zenta.apitweets.business.utils.ReadFile;
 import com.zenta.apitweets.createorupdateuser.http.ApiUsersResult;
 import java.io.IOException;
@@ -35,7 +34,8 @@ public class RestController {
     private final Logger LOG = LoggerFactory.getLogger(RestController.class);
     
     private final RestTemplate restTemplate;
-    private static final String API_URL = "http://localhost:8000/tweets";
+    @Value("${com.zenta.apitweets.url}")
+    private String endpoint;
     
     @Value("classpath:request-check-user")
     private Resource requestCheckUser;
@@ -113,7 +113,7 @@ public class RestController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(input, headers);        
-        UserResponse o = restTemplate.postForObject(API_URL, entity, clazz);
+        UserResponse o = restTemplate.postForObject(endpoint, entity, clazz);
         if(o != null ) {
             if(o.getErrors() !=null && !o.getErrors().isEmpty()) {
                 throw new RuntimeException(o.getErrors().get(0).getMessage());
