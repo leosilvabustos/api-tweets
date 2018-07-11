@@ -1,10 +1,6 @@
-server:
-    port: 8003
 spring:
-    logging:
-        pattern:
-            console: "%d %-5level %logger : %msg%n"
-        level:
-            root: debug
-            org.springframework: debug
-            com.zenta.apitweets: debug
+    application:
+        name: api-get-tweets
+    cloud:
+        config:
+            uri: http://localhost:8888
