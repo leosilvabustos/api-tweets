@@ -12,13 +12,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -34,7 +35,8 @@ public class RestController {
     private final Logger LOG = LoggerFactory.getLogger(RestController.class);
     
     private final RestTemplate restTemplate;
-    private static final String API_URL = "http://localhost:8000/tweets";
+    @Value("${com.zenta.apitweets.url}")
+    private String endpoint;
     
     @Value("classpath:request-gettweets")
     private Resource requestGetTweets;
@@ -42,6 +44,7 @@ public class RestController {
     @Autowired
     public RestController(RestTemplate rt) {
         this.restTemplate = rt;
+        LOG.info("API endpoint: " + this.endpoint);
     }
     
     @PostMapping
@@ -49,7 +52,7 @@ public class RestController {
             @RequestParam(value="pageSize") String pageSize,
             @RequestParam(value="page") String page) throws IOException
     {
-        
+        LOG.info("API endpoint: " + this.endpoint);
         String input = ReadFile.readFromInputStream(requestGetTweets.getInputStream())
                 .replace("$userId", userId)
                 .replace("$pageSize", pageSize)
@@ -65,7 +68,7 @@ public class RestController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(input, headers);
-        ApiGetTweetsResponse rest = restTemplate.postForObject(API_URL, entity, ApiGetTweetsResponse.class);
+        ApiGetTweetsResponse rest = restTemplate.postForObject(this.endpoint, entity, ApiGetTweetsResponse.class);
         return rest;
     }
 }
