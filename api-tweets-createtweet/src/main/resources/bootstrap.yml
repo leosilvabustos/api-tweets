@@ -1,6 +1,6 @@
 spring:
     application:
-        name: app-gettweets
+        name: app-createtweet
     cloud:
         config:
             uri: http://localhost:8888

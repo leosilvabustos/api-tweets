@@ -1,6 +1,6 @@
 spring:
     application:
-        name: app-gettweets
+        name: api-tweets-graphql
     cloud:
         config:
             uri: http://localhost:8888

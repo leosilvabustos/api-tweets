@@ -1,6 +1,6 @@
-/api-tweets-db-access/target/
-/apit-tweets-createorupdateuser/target/
+/api-tweets-createorupdateuser/target/
 /api-tweets-business/target/
 /api-tweets-createtweet/target/
 /api-tweets-gettweets/target/
 /api-tweets-configuration/target/
+/api-tweets-graphql/target/
