@@ -15,5 +15,7 @@ public interface UserRepository extends MongoRepository<User, String>{
     @Query("{ 'profileUrl' : ?0 }")
     public User findByProfileUrl(String url);
     
+    @Query("{ '_id' : ?0 }")
+    public User  findOne(String id);
     
 }

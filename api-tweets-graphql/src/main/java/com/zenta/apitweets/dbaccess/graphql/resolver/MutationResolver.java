@@ -86,7 +86,8 @@ public class MutationResolver implements GraphQLMutationResolver {
     }
     
     public User checkUser(String id, String userUrl) {
-        return id==null?this.userRepository.findByProfileUrl(userUrl) : this.userRepository.findOne(id);
+        return id==null?this.userRepository.findByProfileUrl(userUrl) : 
+                this.userRepository.findOne(id);
     }
     
     @Transactional
