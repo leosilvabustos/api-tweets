@@ -1,12 +1,13 @@
-#Cambiar base de datos
-use apitweets
-#Usar base de datos
+//Cambiar base de datos
+//Usar base de datos
+use apitweets;
 
-db.createCollection("tweets")
-db.createCollection("users")
+//Crear collecciones
+db.createCollection("tweets");
+db.createCollection("users");
 
 
-#Usuarios
+//dummy users
 db.users.insert([{
 	_id: "e99dcecad980465a96ca76ce14df842f",
 	name: "Pedro Soto",
@@ -41,6 +42,7 @@ db.users.insert([{
     following: true
 }]);
 
+//dummy tweets
 db.tweets.insert([{
 	text: "Text 1 Tweet 1",
     source: "WEB",
@@ -131,4 +133,4 @@ db.tweets.insert([{
     urls: [],
     hashtags: ["#tweet6"],
     user: "0f6222b61a814c87a351d4d341766f7a"
-}])
+}]);
