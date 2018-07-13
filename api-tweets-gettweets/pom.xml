@@ -14,6 +14,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+        <project.main.class>${main-class}</project.main.class>
+        <start-class>${main-class}</start-class>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>

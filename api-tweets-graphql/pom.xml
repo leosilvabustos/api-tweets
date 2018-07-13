@@ -13,6 +13,8 @@
         <lombok.version>1.16.16</lombok.version>
         <commons-io.version>2.5</commons-io.version>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+        <project.main.class>${main-class}</project.main.class>
+        <start-class>${com.zenta.apitweets.createorupdateuser.App}</start-class>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -68,17 +70,20 @@
     </dependencyManagement>
     <build>
         <plugins>
-            <!-- Build an executable JAR -->
-            <plugin>                
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>2.4</version>
                 <configuration>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.zenta.apitweets.dbaccess.App</mainClass>
+                            <mainClass>${project.main.class}</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
