@@ -10,8 +10,10 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>
-        <main-class>com.zenta.apitweets.createorupdateuser.App</main-class>
+        <main-class>com.zenta.apitweets.createtweet.App</main-class>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+        <project.main.class>${main-class}</project.main.class>
+        <start-class>${main-class}</start-class>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -65,7 +67,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.zenta.apitweets.createorupdateuser.App</mainClass>
+                            <mainClass>${main-class}</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

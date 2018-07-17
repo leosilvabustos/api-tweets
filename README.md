@@ -38,3 +38,28 @@ Las aplicaciones que deben generarse como ejecutables son los siguientes:
 1. api-tweets-createorupdateuser
 1. api-tweets-createtweet
 1. api-tweets-gettweets
+
+## Publicación en GCP
+
+Se publican con Dockerfile generados a partir de una imagen liviana que solo tiene el jdk8
+
+
+    FROM openjdk:8-jdk-alpine
+    VOLUME /tmp
+	COPY ./target/api-tweets-graphql-1.0-SNAPSHOT.jar app.jar
+	EXPOSE 8000
+	ENTRYPOINT exec java -jar app.jar
+	
+
+Posteriormente debe cargar los docker en kubernetes de GCP, para esto utilizamos lo siguiente:
+
+
+
+    cd api-tweets/api-tweets-createtweet
+	docker build -t leosilvabustos/api-tweets-createtweet:v1 .
+	gcloud docker -- push leosilvabustos/api-tweets-createtweet:v1
+	kubectl run api-tweets-createtweet --image=leosilvabustos/api-tweets-createtweet:v1 --port 8000
+	kubectl expose deployment api-tweets-createtweet --type=LoadBalancer --port 8904 --target-port 8000 --load-balancer-ip=35.199.71.175
+
+
+
