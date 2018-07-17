@@ -1,5 +1,5 @@
-FROM openjdk:10-jre-slim
-COPY ./target/*.jar /app.jar
-WORKDIR /
-EXPOSE 8282
-CMD ["java", "-jar", "app.jar"]
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+COPY ./target/api-tweets-gettweets-1.0-SNAPSHOT.jar app.jar
+EXPOSE 8903
+ENTRYPOINT exec java -jar app.jar
