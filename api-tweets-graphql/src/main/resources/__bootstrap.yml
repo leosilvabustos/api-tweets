@@ -1,0 +1,6 @@
+spring:
+    application:
+        name: api-tweets-graphql
+    #cloud:
+    #    config:
+    #        uri: http://35.199.71.175:8888

@@ -1,6 +1,0 @@
-spring:
-    application:
-        name: app-createorupdateuser
-    cloud:
-        config:
-            uri: http://35.199.71.175:8888

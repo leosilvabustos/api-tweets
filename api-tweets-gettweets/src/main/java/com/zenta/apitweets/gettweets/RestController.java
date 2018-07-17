@@ -35,8 +35,8 @@ public class RestController {
     private final Logger LOG = LoggerFactory.getLogger(RestController.class);
     
     private final RestTemplate restTemplate;
-    @Value("${com.zenta.apitweets.url}")
-    private String endpoint;
+
+    private final String endpoint;
     
     @Value("classpath:request-gettweets")
     private Resource requestGetTweets;
@@ -44,6 +44,10 @@ public class RestController {
     @Autowired
     public RestController(RestTemplate rt) {
         this.restTemplate = rt;
+        String host = System.getenv("API_TWEETS_GRAPHQL_SERVICE_HOST");
+        String port = System.getenv("API_TWEETS_GRAPHQL_SERVICE_PORT");
+        LOG.info("host: " + host + ", port: " + port);
+        this.endpoint = "http://"+host+ ":" + port+"/tweets";
         LOG.info("API endpoint: " + this.endpoint);
     }
     
